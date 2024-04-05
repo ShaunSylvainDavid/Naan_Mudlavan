@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect
 from django.db.models import Case, When
+from django.http import HttpResponseNotFound
 
 def history(request):
     if request.method == "POST":
@@ -119,6 +120,9 @@ def logout_user(request):
 
 def channel(request, channel):
     chan = Channel.objects.filter(name=channel).first()
+    if not chan:
+        # You might want to return an appropriate response, such as a 404 page
+        return HttpResponseNotFound("Channel not found")
     video_ids = str(chan.music).split(" ")[1:]
 
     preserved = Case(*[When(pk=pk, then=pos) for pos, pk in enumerate(video_ids)])

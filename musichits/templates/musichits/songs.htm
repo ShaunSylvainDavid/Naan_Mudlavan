@@ -1,36 +1,38 @@
-{%extends 'musichits/basic.htm'%}
-{% block title%}All Songs{% endblock %}
+{% extends 'musichits/basic.htm' %}
+{% block title %}All Songs{% endblock %}
 
 {% block body %}
+{% load static %}
 <div class="container">
-
-
-{% for i in song reversed %}
-<div class="card mb-3" style="max-width: 940px; padding-top: 0%;">
-    <div class="row no-gutters">
-      <div class="col-md-4">
-        <img src="{{i.image}}" class="card-img" alt="...">
-      </div>
-      <div class="col-md-8">
-        <div class="card-body">
-          <h5 class="card-title" style="color: rgb(78, 10, 236); font-weight: 550;">{{i.name}}</h5>
-          <!-- <p class="card-text">Tags: {{i.tags}}</p> -->
-        <p class="card-text">Movie: {{i.movie}}</p>
-        {% if user.is_authenticated %}
-        <form action="/musichits/history" method="POST">{% csrf_token %}
-          <input type="hidden" name="music_id" value="{{i.song_id}}">
-          <a href="/musichits/songs/{{i.song_id}}"><button class="btn btn-outline-danger">Play now</button></a>
-          <a href="/musichits/songs/{{i.song_id}}" class="btn btn-outline-danger ">Add to playlist</a>
-
-        </form>
-        {% else %}
-        <a href="/musichits/songs/{{i.song_id}}"><button class="btn btn-outline-danger">Play now</button></a>
-        
-        {% endif %}
-        </div>
+  <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active" style="z-index: -9999;position: fixed;">
+          <img src="{% static 'musichits/head.jpg'%}" class="d-block w-100 h-50" alt="..." >
       </div>
     </div>
   </div>
-  {% endfor %}
+  <div class="row">
+    {% for i in song reversed %}
+    <div class="col-md-4 mb-4" style="padding-top: 10px;">
+      <div class="card h-100" style="background-color:  transparent;">
+        <img src="{{ i.image }}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title" style="color: #1ED760; font-weight: 550;">{{ i.name }}</h5>
+          <p class="card-text">Movie: {{ i.movie }}</p>
+          {% if user.is_authenticated %}
+          <form action="/musichits/history" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="music_id" value="{{ i.song_id }}">
+            <button type="submit" class="btn btn-outline-danger">Play now</button>
+            <a href="/musichits/songs/{{ i.song_id }}" class="btn btn-outline-danger">Add to playlist</a>
+          </form>
+          {% else %}
+          <a href="/musichits/songs/{{ i.song_id }}" class="btn btn-outline-danger">Play now</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
 </div>
 {% endblock %}

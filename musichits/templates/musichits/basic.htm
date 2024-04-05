@@ -32,13 +32,13 @@
         </ul>
         <form class="form-inline my-2 my-lg-0">
           <input class="form-control mr-sm-1" type="search" placeholder="Search" aria-label="Search" style="background-color:black; border-radius: 15px;color: #A7A7A7;">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit"style="margin-left:10px">Search</button>
         </form>
       </div>
       {% if user.is_authenticated %}
                 <ul class="navbar-nav ml-auto"></ul>
                 <li class="nav nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" style="color: rgb(7, 7, 7);" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Welcome {{request.user}}</a>
+                    <a class="nav-link dropdown-toggle" style="color:#1ED760;font-weight:600;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Welcome {{request.user}}</a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                       <a class="dropdown-item" href="/musichits/c/{{request.user}}">Your Channel</a>
                       <a class="dropdown-item" href="/musichits/upload">Upload Music</a>
